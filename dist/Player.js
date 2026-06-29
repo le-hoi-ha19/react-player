@@ -40,6 +40,11 @@ const Player = React.forwardRef((props, ref) => {
       }
     }
   }, [pip]);
+  useEffect(() => {
+    if (playerRef.current && props.src) {
+      playerRef.current.load();
+    }
+  }, [props.src]);
   const handleLoadStart = (event) => {
     var _a, _b;
     startOnPlayRef.current = true;

@@ -56,6 +56,12 @@ const Player: Player = React.forwardRef((props, ref) => {
     }
   }, [pip]);
 
+  useEffect(() => {
+    if (playerRef.current && props.src) {
+      playerRef.current.load();
+    }
+  }, [props.src]);
+
   const handleLoadStart = (event: SyntheticEvent<HTMLVideoElement>) => {
     startOnPlayRef.current = true;
     props.onReady?.();
