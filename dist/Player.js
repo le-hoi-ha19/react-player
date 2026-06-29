@@ -8,7 +8,14 @@ const Player = React.forwardRef((props, ref) => {
     var _a, _b;
     if (!playerRef.current) return;
     if (playerRef.current.paused && playing === true) {
-      playerRef.current.play();
+      const playPromise = playerRef.current.play();
+      if (playPromise !== void 0) {
+        playPromise.catch((e) => {
+          if (e.name !== "AbortError") {
+            console.warn("ReactPlayer play() error:", e);
+          }
+        });
+      }
     }
     if (!playerRef.current.paused && playing === false) {
       playerRef.current.pause();

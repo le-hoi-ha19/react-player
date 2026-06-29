@@ -21,7 +21,14 @@ const Player: Player = React.forwardRef((props, ref) => {
 
     // Use strict equality for `playing`, if it's nullish, don't do anything.
     if (playerRef.current.paused && playing === true) {
-      playerRef.current.play();
+      const playPromise = playerRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.catch((e) => {
+          if (e.name !== 'AbortError') {
+            console.warn('ReactPlayer play() error:', e);
+          }
+        });
+      }
     }
     if (!playerRef.current.paused && playing === false) {
       playerRef.current.pause();
