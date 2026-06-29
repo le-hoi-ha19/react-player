@@ -28,6 +28,7 @@
     }
   },
   "scripts": {
+    "prepare": "npm run build",
     "clean": "rimraf dist demo coverage",
     "start": "run-p 'types -- -w' 'build:esm -- --watch=forever' 'build:demo -- --watch=forever --servedir=demo'",
     "lint": "biome lint src/*",
